@@ -1,0 +1,3 @@
+def today
+	%w{sunday monday tuesday wednesday thursday friday saturday}[Time.now.wday]
+end
