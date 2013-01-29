@@ -6,19 +6,41 @@ text = "But I must 1 explain to you 3444 how all http://www.ukr.net/news/politik
 
 #task1
 #lWord regex ->find all words that end with space or nothing
-lWord = /[A-Za-z']+(?![^ ,])/
+wordReg = /[A-Za-z']+(?![^ ,])/
 puts "--- task1 ---"
-longestWord = parse_text(text, lWord)
+puts "Longest word: "
+longestWord = parse_text(text, wordReg)
 puts longestWord.group_by(&:size).max.last
 
 #task2
-#url1 regex -> deletes all query stuff. url2 -> finds url(3 different cases)
-url1 = /(^[^?]+)/
-url2 = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
-puts "--- task2 ---"
-url = parse_text(text, url2)
+#url1Reg regex -> deletes all query stuff. url2Reg -> finds url(3 different cases)
+url1Reg = /(^[^?]+)/
+url2Reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+puts "\n--- task2 ---"
+puts "URLs with root: "
+url = parse_text(text, url2Reg)
 url.each {
-	|x|
-	puts x[0].scan(url1)
+	|url|
+	puts url[0].scan(url1Reg)
 }
+
 #task3 
+#nRegex -> finds all numbers in text
+nRegex = /[0-9]+/
+puts "\n--- task3 ---"
+puts "Longest number: "
+numbers = parse_text(text, nRegex)
+puts numbers.group_by(&:size).max.last
+#task4
+puts "\n--- task4 ---"
+puts "Word count: "
+def word_count(parse)
+	words = Hash.new(0)
+	parse.each {
+		|w|
+		words[w] += 1
+	}
+	words
+end
+words = parse_text(text, wordReg)
+puts word_count(words)
