@@ -14,16 +14,11 @@ puts longestWord.group_by(&:size).max.last
 
 #task2
 #url1Reg regex -> deletes all query stuff. url2Reg -> finds url(3 different cases)
-url1Reg = /(^[^?]+)/
-url2Reg = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+urlReg = /https?:\/\/[^\/ ]+/
 puts "\n--- task2 ---"
 puts "URLs with root: "
-url = parse_text(text, url2Reg)
-url.each {
-	|url|
-	puts url[0].scan(url1Reg)
-}
-
+url = parse_text(text, urlReg)
+puts url
 #task3 
 #nRegex -> finds all numbers in text
 nRegex = /[0-9]+/
@@ -36,10 +31,10 @@ puts "\n--- task4 ---"
 puts "Word count: "
 def word_count(parse)
 	words = Hash.new(0)
-	parse.each {
+	parse.each do
 		|w|
 		words[w] += 1
-	}
+	end
 	words
 end
 words = parse_text(text, wordReg)
