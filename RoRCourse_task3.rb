@@ -13,7 +13,7 @@ longestWord = parse_text(text, wordReg)
 puts longestWord.group_by(&:size).max.last
 
 #task2
-#url1Reg regex -> deletes all query stuff. url2Reg -> finds url(3 different cases)
+#urlReg regex -> finds root urls
 urlReg = /https?:\/\/[^\/ ]+/
 puts "\n--- task2 ---"
 puts "URLs with root: "
